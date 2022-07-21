@@ -1,5 +1,7 @@
-<h1>{{title}}</h1>
 
-<ul>
-<li *ngFor='let user of users'>{{user.id}} - {{user.userName}}</li>
-</ul>
+<app-header></app-header>
+<mat-drawer-container class="app-container">
+    <mat-drawer mode="side" opened><app-sidebar></app-sidebar></mat-drawer>
+    <mat-drawer-content><router-outlet></router-outlet></mat-drawer-content>
+</mat-drawer-container>
+<app-footer></app-footer>
