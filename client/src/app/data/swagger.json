@@ -16,7 +16,8 @@
     "/v1/Courses": {
       "get": {
         "tags": [
-          "Courses"
+          "Courses",
+          "Courses2"
         ],
         "summary": "Get courses from the CMS system",
         "description": "This API should be use to fetch all courses from the system.",

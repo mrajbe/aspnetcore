@@ -3,6 +3,7 @@
   
   "compileOnSave": false,
   "compilerOptions": {
+    "types": ["node"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "baseUrl": "./",

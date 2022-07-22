@@ -16,12 +16,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ApiDocumentComponent } from './api-document/api-document.component';
+import { SwaggerComponent } from './swagger/swagger.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
-    ApiDocumentComponent
+    ApiDocumentComponent,
+      SwaggerComponent
    ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import SwaggerUI from 'swagger-ui';
-import customerApiDoc from "./swagger.json";
+import { SwaggerService } from '../_services/swagger.service';
 
 @Component({
   selector: 'app-api-document',
@@ -8,8 +8,22 @@ import customerApiDoc from "./swagger.json";
   styleUrls: ['./api-document.component.css']
 })
 export class ApiDocumentComponent implements OnInit {
+
+  constructor(private swaggerService : SwaggerService) { }
+
 //AfterContentInit
   ngOnInit() {
+    var customerApiDoc ;
+    this.swaggerService.getSwaggerJson().subscribe(
+      {
+        next: response => {
+         customerApiDoc = response
+        },
+        error: error => {
+          console.log(error);
+        }
+      }
+    )
     const apiDocumentation = customerApiDoc;
     SwaggerUI({
         domNode: document.getElementById('swagger-ui-item'),
