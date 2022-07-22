@@ -10,9 +10,10 @@ import customerApiDoc from "./swagger.json";
 export class ApiDocumentComponent implements OnInit {
 //AfterContentInit
   ngOnInit() {
+    const apiDocumentation = customerApiDoc;
     SwaggerUI({
         domNode: document.getElementById('swagger-ui-item'),
-        url: 'https://localhost:5001/swagger/v1/swagger.json'
+        spec: apiDocumentation
       });
 }
   // @ViewChild('customerapidocumentation',{static: true}) custApiDocElement: ElementRef | undefined
