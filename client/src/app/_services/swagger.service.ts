@@ -49,14 +49,14 @@ export class SwaggerService implements OnInit {
 
   public getSwaggerJson(): Observable<any> {
     return new Observable(observer => observer.next(swaggerJson))
-    //return this.http.get('../data/swagger.json');
+   // return this.http.get('https://petstore.swagger.io/v2/swagger.json');
   }
 
   getApis(tag: string) {
     var paths = new Array();
     for (let [key, value] of Object.entries(this.data.paths)) {
       if (!this.hasTag(tag, value)) {
-        break;
+        continue;
       }
       var methods = this.getMethods(tag, value);
       var path = {
