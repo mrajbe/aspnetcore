@@ -8,15 +8,18 @@ import swaggerJson from '../data/swagger.json'
   providedIn: 'root'
 })
 export class SwaggerService implements OnInit {
-  data: any ;
-  testData = {people: [
-    {name: 'Matt', country: 'NZ'},
-    {name: 'Pete', country: 'AU'},
-    {name: 'Mikey', country: 'NZ'}
-  ]};
+  data: any;
+  testData = {
+    people: [
+      { name: 'Matt', country: 'NZ' },
+      { name: 'Pete', country: 'AU' },
+      { name: 'Mikey', country: 'NZ' }
+    ]
+  };
+  verbs = ['get', 'post', 'put', 'patch', 'delete', 'options']
   tags = new Array();
   //jsonQuery = require('json-query');
-  constructor(private http : HttpClient) {
+  constructor(private http: HttpClient) {
 
     this.getSwaggerJson().subscribe(
       {
@@ -27,11 +30,11 @@ export class SwaggerService implements OnInit {
           console.log(error);
         }
 
-    }
-      
+      }
+
     )
 
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -44,31 +47,101 @@ export class SwaggerService implements OnInit {
     return Array.from(new Set(this.tags));;
   }
 
-  public getSwaggerJson() : Observable<any>
-  {
+  public getSwaggerJson(): Observable<any> {
     return new Observable(observer => observer.next(swaggerJson))
     //return this.http.get('../data/swagger.json');
   }
 
-  getApis(tags: string)
-  {
+  getApis(tag: string) {
+    var paths = new Array();
+    for (let [key, value] of Object.entries(this.data.paths)) {
+      if (!this.hasTag(tag, value)) {
+        break;
+      }
+      var methods = this.getMethods(tag, value);
+      var path = {
+        name: key,
+        methods: methods
+      }
+      paths.push(path)
+    }
+
+
+    console.log(paths);
+    return paths;
     //jsonQuery('people[country=NZ].name'), {data : this.testData};
-    console.log(jsonQuery('people[country=NZ].name'), {data : this.testData})
+    //console.log(jsonQuery('people[country=NZ].name'), {data : this.testData})
+
   }
 
-  deepIterator (target) {
+  getMethods(tag, path) {
+    var methods = new Array()
+    for (let method of this.verbs) {
+      if (path[method] && path[method].tags.indexOf(tag) != -1) {
+        methods.push({ name: method, value: path[method] });
+      }
+    }
+    return methods;
+
+  }
+
+  hasTag(tag, path) {
+    for (let method of this.verbs) {
+      if (path[method] && path[method].tags.indexOf(tag) != -1) {
+        return true;
+      }
+    }
+    return false;
+
+  }
+
+  getMenu() : Array<any>
+  {
+    var menuTree = new Array();
+    var tags = this.getAllTags();
+    for(let tag of tags)
+    {
+      var children = new Array();
+      var paths = this.getApis(tag);
+      
+      for(let path of paths)
+      {
+        children.push(...this.getChildren(path))
+      }
+      var menu = { name:tag, children: children} 
+      menuTree.push(menu)
+
+    }
+    return menuTree;
+  }
+
+  getChildren(path)
+  {
+    var children = new Array();
+    for(let method of path.methods)
+    {
+      var child = {
+        name: method.value.summary,
+        method: method.name
+      }
+      children.push(child);
+    }
+    return children;
+  }
+
+  deepIterator(target) {
     if (typeof target === 'object') {
       for (const key in target) {
         //console.log(key);
-        if(key =='tags'){
-         
+        if (key == 'tags') {
+
           this.tags.push(...target[key])
-          
+
           return;
 
         }
         this.deepIterator(target[key]);
-        
+
       }
     } else {
       //console.log(target);

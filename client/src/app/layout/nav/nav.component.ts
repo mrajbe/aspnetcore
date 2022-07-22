@@ -1,6 +1,7 @@
 import { FlatTreeControl, NestedTreeControl } from "@angular/cdk/tree";
 import { Component } from "@angular/core";
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from "@angular/material/tree";
+import { SwaggerService } from "src/app/_services/swagger.service";
 import { ExampleFlatNode } from "./ExampleFlatNode";
 import { INode } from "./INode";
 
@@ -34,19 +35,20 @@ export class NavComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor() {
-    this.dataSource.data = TREE_DATA;
+  constructor(private swaggerService: SwaggerService) {
+    //this.dataSource.data = TREE_DATA;
+    this.dataSource.data = swaggerService.getMenu();
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
   getColor(method) {
     
     switch (method) {
-      case 'Get':
+      case 'get':
         return 'green';
-      case 'Post':
+      case 'post':
         return 'blue';
-      case 'Delete':
+      case 'delete':
         return 'red';
       default:
         return 'grey';

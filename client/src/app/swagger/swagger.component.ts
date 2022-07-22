@@ -14,7 +14,7 @@ export class SwaggerComponent implements OnInit {
  // paths = Object.keys(this.data.paths)
   ngOnInit() {
     this.tags = this.swaggerService.getAllTags()
-    this.swaggerService.getApis('');
+    this.swaggerService.getApis('Courses');
   }
   
 

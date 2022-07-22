@@ -110,6 +110,7 @@
         "tags": [
           "Courses"
         ],
+        "summary": "Get Details",
         "parameters": [
           {
             "name": "courseId",
@@ -188,6 +189,7 @@
         "tags": [
           "Courses"
         ],
+        "summary": "Mark as Favorite",
         "parameters": [
           {
             "name": "courseId",
@@ -288,6 +290,7 @@
         "tags": [
           "Courses"
         ],
+        "summary": "Delete Session",
         "parameters": [
           {
             "name": "courseId",
