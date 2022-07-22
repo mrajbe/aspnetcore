@@ -44,8 +44,8 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    SearchComponent
-    
+    SearchComponent,
+    NavComponent
   ]
 })
 export class LayoutModule { }

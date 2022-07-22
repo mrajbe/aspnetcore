@@ -19,10 +19,10 @@ import { ApiDocumentComponent } from './api-document/api-document.component';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     ApiDocumentComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

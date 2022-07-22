@@ -1,8 +1,9 @@
-import { FlatTreeControl } from "@angular/cdk/tree";
+import { FlatTreeControl, NestedTreeControl } from "@angular/cdk/tree";
 import { Component } from "@angular/core";
-import { DynamicDataSource } from "src/app/_services/dynamic-data-source";
-import { DynamicDatabaseService } from "src/app/_services/dynamic-database.service";
-import { DynamicFlatNode } from "src/app/_services/dynamic-flat-node";
+import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from "@angular/material/tree";
+import { ExampleFlatNode } from "./ExampleFlatNode";
+import { INode } from "./INode";
+
 
 @Component({
   selector: 'app-nav',
@@ -10,20 +11,87 @@ import { DynamicFlatNode } from "src/app/_services/dynamic-flat-node";
   styleUrls: ['nav.component.css'],
 })
 export class NavComponent {
-  constructor(database: DynamicDatabaseService) {
-    this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new DynamicDataSource(this.treeControl, database);
+  private _transformer = (node: INode, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      method: node.method,
+      level: level,
+    };
+  };
 
-    this.dataSource.data = database.initialData();
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+  constructor() {
+    this.dataSource.data = TREE_DATA;
   }
 
-  treeControl: FlatTreeControl<DynamicFlatNode>;
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  getColor(method) {
+    
+    switch (method) {
+      case 'Get':
+        return 'green';
+      case 'Post':
+        return 'blue';
+      case 'Delete':
+        return 'red';
+      default:
+        return 'grey';
 
-  dataSource: DynamicDataSource;
-
-  getLevel = (node: DynamicFlatNode) => node.level;
-
-  isExpandable = (node: DynamicFlatNode) => node.expandable;
-
-  hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
+    }
+  }
+  
 }
+
+const TREE_DATA: INode[] = [
+  {
+    name: 'Getting Started',
+    children: [{name: 'Introduction'}, {name: 'Authentication'}, {name: 'Regions'}],
+  },
+  {
+    name: 'Account',
+    children: [
+      {
+        name: 'Get Details' ,
+        method: 'Get'     
+      },
+      {
+        name: 'Get Created List',
+        method: 'Get'
+      },
+      {
+        name: 'Mark as Favorite',
+        method: 'Post'
+      },
+    ],
+  },
+  {
+    name: 'Authentication',
+    children: [
+      {
+        name: 'How do I generate a session id?'
+      }, 
+      {
+        name: 'Create Guest Session Id',
+        method: 'Post'
+      }, 
+      {
+        name: 'Delete Session',
+        method: 'Delete'
+      }
+  ],
+  }
+];
