@@ -7,14 +7,14 @@ import { DynamicFlatNode } from './dynamic-flat-node';
  */
  @Injectable({providedIn: 'root'})
  export class DynamicDatabaseService {
-   dataMap = new Map<string, string[]>([
-     ['Posts', ['Get All Posts', 'Get a Single Post', 'Get Posts of an User']],
-     ['Authentication', ['Users', 'Roles', 'Permissions']],
-     ['Roles', ['Admin', 'AppUSer']],
-     ['Permissions', ['Read', 'Write']],
+   dataMap = new Map<string, string[]>([     
+     ['Getting Started', ['Introduction', 'Authentication ', 'Regions']],
+     ['Account', ['Get Details', 'Get Created Lists', 'Mark as Favorite']],
+     ['Authentication', ['How do I generate Session ID', 'Create Guest Session', 'Create Request Token']],
+     ['Posts', ['Get All Posts', 'Get a Single Post', 'Get Posts of an User']]
    ]);
  
-   rootLevelNodes: string[] = ['Posts', 'Authentication'];
+   rootLevelNodes: string[] = ['Getting Started', 'Account', 'Authentication','Posts'];
  
    /** Initial data from database */
    initialData(): DynamicFlatNode[] {

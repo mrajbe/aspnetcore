@@ -15,11 +15,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ApiDocumentComponent } from './api-document/api-document.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ApiDocumentComponent
   ],
   imports: [
     BrowserModule,

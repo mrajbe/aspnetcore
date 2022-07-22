@@ -16,6 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import { NavComponent } from './nav/nav.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -36,7 +37,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatSelectModule,
     MatInputModule,
     MatTreeModule,
-    MatProgressBarModule   
+    MatProgressBarModule,
+    RouterModule  
   ],
   exports:[
     HeaderComponent,

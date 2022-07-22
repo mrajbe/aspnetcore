@@ -1,2 +1,10 @@
-<app-search></app-search>
+<!-- <a routerLink="/docs" >swagger</a> -->
+<mat-form-field class="version" appearance="fill">
+    <mat-label>Version</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let version of versions" [value]="version.value">
+        {{version.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 <app-nav></app-nav>
