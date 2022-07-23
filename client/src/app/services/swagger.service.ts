@@ -74,14 +74,18 @@ export class SwaggerService implements OnInit {
 
   }
 
-  getMethod(url, name)
+  getMethod(tag, url, name)
   {
     var method;
     for (let [key, value] of Object.entries(this.data.paths)) 
     {
       if(key == url)
       {
-        method = value[name];
+        method = {
+          tag: tag,
+          url : url, 
+          value: value[name]
+        };
         return method;
       }
     }
@@ -121,7 +125,7 @@ export class SwaggerService implements OnInit {
       
       for(let path of paths)
       {
-        children.push(...this.getChildren(path))
+        children.push(...this.getChildren(tag, path))
       }
       var menu = { name:tag, children: children} 
       menuTree.push(menu)
@@ -130,13 +134,14 @@ export class SwaggerService implements OnInit {
     return menuTree;
   }
 
-  getChildren(path)
+  getChildren(tag, path)
   {
     var children = new Array();
     for(let method of path.methods)
     {
       var child = {
         url: path.name,
+        tag: tag,
         name: method.value.summary,
         method: method.name
       }

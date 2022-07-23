@@ -22,7 +22,7 @@ export class ApiDocumentComponent implements OnInit {
     this.activatedRoute.queryParamMap.subscribe(
       {
         next: response => {
-          this.method = this.swaggerService.getMethod(response['params'].url, response['params'].method);
+          this.method = this.swaggerService.getMethod(response['params'].tag, response['params'].url, response['params'].method);
           console.log(this.method);
         },
         error: error => {

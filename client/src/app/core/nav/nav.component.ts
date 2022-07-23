@@ -17,6 +17,7 @@ export class NavComponent {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
+      tag: node.tag,
       method: node.method,
       url: node.url,
       level: level,
@@ -59,13 +60,7 @@ export class NavComponent {
     }
   }
 
-  navigate(node)
-  {
-    
-    this.router.navigateByUrl('/docs', node)
 
-  }
-  
 }
 
 const TREE_DATA: INode[] = [
