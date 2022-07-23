@@ -74,6 +74,21 @@ export class SwaggerService implements OnInit {
 
   }
 
+  getMethod(url, name)
+  {
+    var method;
+    for (let [key, value] of Object.entries(this.data.paths)) 
+    {
+      if(key == url)
+      {
+        method = value[name];
+        return method;
+      }
+    }
+    return;
+
+  }
+
   getMethods(tag, path) {
     var methods = new Array()
     for (let method of this.verbs) {
@@ -121,6 +136,7 @@ export class SwaggerService implements OnInit {
     for(let method of path.methods)
     {
       var child = {
+        url: path.name,
         name: method.value.summary,
         method: method.name
       }

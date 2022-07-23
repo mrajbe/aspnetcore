@@ -1,6 +1,6 @@
 export interface INode {
   name: string;
-  href?: string;
+  url?: string;
   method?: string;
   children?: INode[];
 }

@@ -1,6 +1,7 @@
 import { FlatTreeControl, NestedTreeControl } from "@angular/cdk/tree";
 import { Component } from "@angular/core";
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from "@angular/material/tree";
+import { Router } from "@angular/router";
 import { SwaggerService } from "src/app/services/swagger.service";
 import { ExampleFlatNode } from "./ExampleFlatNode";
 import { INode } from "./INode";
@@ -17,6 +18,7 @@ export class NavComponent {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       method: node.method,
+      url: node.url,
       level: level,
     };
   };
@@ -35,7 +37,8 @@ export class NavComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private swaggerService: SwaggerService) {
+  constructor(private swaggerService: SwaggerService,
+    private router: Router) {
     //this.dataSource.data = TREE_DATA;
     this.dataSource.data = swaggerService.getMenu();
   }
@@ -55,6 +58,13 @@ export class NavComponent {
 
     }
   }
+
+  navigate(node)
+  {
+    
+    this.router.navigateByUrl('/docs', node)
+
+  }
   
 }
 
@@ -68,15 +78,15 @@ const TREE_DATA: INode[] = [
     children: [
       {
         name: 'Get Details' ,
-        method: 'Get'     
+        method: 'get'     
       },
       {
         name: 'Get Created List',
-        method: 'Get'
+        method: 'get'
       },
       {
         name: 'Mark as Favorite',
-        method: 'Post'
+        method: 'post'
       },
     ],
   },
@@ -88,11 +98,11 @@ const TREE_DATA: INode[] = [
       }, 
       {
         name: 'Create Guest Session Id',
-        method: 'Post'
+        method: 'post'
       }, 
       {
         name: 'Delete Session',
-        method: 'Delete'
+        method: 'delete'
       }
   ],
   }

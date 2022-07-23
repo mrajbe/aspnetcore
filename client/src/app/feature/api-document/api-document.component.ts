@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import SwaggerUI from 'swagger-ui';
 import { SwaggerService } from '../../services/swagger.service';
 
@@ -8,37 +9,29 @@ import { SwaggerService } from '../../services/swagger.service';
   styleUrls: ['./api-document.component.css']
 })
 export class ApiDocumentComponent implements OnInit {
+  method;
 
-  constructor(private swaggerService : SwaggerService) { }
+  constructor(private swaggerService:SwaggerService,private activatedRoute : ActivatedRoute) { 
+    // this.apiDoc = this.router.getCurrentNavigation().extras.state;
+    // console.log(this.apiDoc);
+  }
 
 //AfterContentInit
   ngOnInit() {
     var customerApiDoc ;
-    this.swaggerService.getSwaggerJson().subscribe(
+    this.activatedRoute.queryParamMap.subscribe(
       {
         next: response => {
-         customerApiDoc = response
+          this.method = this.swaggerService.getMethod(response['params'].url, response['params'].method);
+          console.log(this.method);
         },
         error: error => {
           console.log(error);
         }
       }
     )
-    const apiDocumentation = customerApiDoc;
-    SwaggerUI({
-        domNode: document.getElementById('swagger-ui-item'),
-        spec: apiDocumentation
-      });
+
 }
-  // @ViewChild('customerapidocumentation',{static: true}) custApiDocElement: ElementRef | undefined
-  // constructor() { }
-  // ngAfterContentInit(): void {
-  //   const apiDocumentation = customerApiDoc;
-  //   const ui = SwaggerUI({
-  //     spec: apiDocumentation,
-  //     domNode: this.custApiDocElement?.nativeElement,
-  //   })
-  // }
 
 
 }

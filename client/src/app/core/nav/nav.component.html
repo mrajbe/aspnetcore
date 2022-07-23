@@ -3,7 +3,7 @@
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="tree-node">
     <!-- use a disabled button to provide padding for tree leaf -->
     <button mat-icon-button disabled></button>
-    <div *ngIf="node.method" class="method"><span [ngStyle]="{'color':getColor(node.method)}">{{node.method}}</span></div>
+    <div *ngIf="node.method" class="method"><a class="router-link" [routerLink]="['docs']" [queryParams]="node"><span [ngStyle]="{'color':getColor(node.method)}">{{node.method}}</span></a></div>
     <div class="name">{{node.name}}</div>
   </mat-tree-node>
   <!-- This is the tree node template for expandable nodes -->
