@@ -82,6 +82,7 @@ export class SwaggerService implements OnInit {
       if(key == url)
       {
         method = {
+          name: name,
           tag: tag,
           url : url, 
           value: value[name]

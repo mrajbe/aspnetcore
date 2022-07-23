@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Utility } from 'src/app/shared/utility';
 import SwaggerUI from 'swagger-ui';
 import { SwaggerService } from '../../services/swagger.service';
 
@@ -30,6 +31,12 @@ export class ApiDocumentComponent implements OnInit {
         }
       }
     )
+
+}
+
+getColor(method)
+{
+  return Utility.getColor(method);
 
 }
 

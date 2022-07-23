@@ -17,6 +17,8 @@ import { NavComponent } from './nav/nav.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
+import { Utility } from '../shared/utility';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -38,7 +40,8 @@ import { RouterModule } from '@angular/router';
     MatInputModule,
     MatTreeModule,
     MatProgressBarModule,
-    RouterModule  
+    RouterModule,
+    SharedModule 
   ],
   exports:[
     HeaderComponent,

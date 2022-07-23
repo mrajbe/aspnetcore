@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { SwaggerService } from "src/app/services/swagger.service";
 import { ExampleFlatNode } from "./ExampleFlatNode";
 import { INode } from "./INode";
+import  {Utility} from '../../shared/utility';
 
 
 @Component({
@@ -45,19 +46,11 @@ export class NavComponent {
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-  getColor(method) {
-    
-    switch (method) {
-      case 'get':
-        return 'green';
-      case 'post':
-        return 'blue';
-      case 'delete':
-        return 'red';
-      default:
-        return 'grey';
+  
+  getColor(method)
+  {
+    return Utility.getColor(method);
 
-    }
   }
 
 

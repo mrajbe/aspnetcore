@@ -1,0 +1,14 @@
+<mat-card class="api-card">
+    <mat-card-title class="title" >{{method.tag}}</mat-card-title>
+    <mat-card-subtitle class="sub-title" >{{method.value.summary}}</mat-card-subtitle>
+    <div class="method">
+        <span class="method-name" [ngStyle]="{'color':getColor(method.name)}" >{{method.name}}</span>
+        <span class="method-url" >{{method.url}}</span>
+    </div>
+    <mat-card-content class="content">
+      <p>{{method.value.description}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>SAVE</button>
+    </mat-card-actions>
+  </mat-card>
