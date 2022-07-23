@@ -48,4 +48,4 @@ import { RouterModule } from '@angular/router';
     NavComponent
   ]
 })
-export class LayoutModule { }
+export class CoreModule { }

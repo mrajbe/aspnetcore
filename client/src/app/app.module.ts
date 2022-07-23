@@ -8,15 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { LayoutModule } from './layout/layout.module';
+import { CoreModule } from './core/core.module';
 import { UsersModule } from './users/users.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { ApiDocumentComponent } from './api-document/api-document.component';
-import { SwaggerComponent } from './swagger/swagger.component';
+import { ApiDocumentComponent } from './feature/api-document/api-document.component';
+import { SwaggerComponent } from './feature/swagger/swagger.component';
 
 
 @NgModule({
@@ -33,7 +33,7 @@ import { SwaggerComponent } from './swagger/swagger.component';
     FormsModule,
     MatSelectModule,
     MatSidenavModule,
-    LayoutModule,
+    CoreModule,
     UsersModule,
     MatToolbarModule,
     MatIconModule,

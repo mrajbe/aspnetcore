@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import SwaggerUI from 'swagger-ui';
-import { SwaggerService } from '../_services/swagger.service';
+import { SwaggerService } from '../../services/swagger.service';
 
 @Component({
   selector: 'app-api-document',

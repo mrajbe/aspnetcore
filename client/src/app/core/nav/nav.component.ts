@@ -1,7 +1,7 @@
 import { FlatTreeControl, NestedTreeControl } from "@angular/cdk/tree";
 import { Component } from "@angular/core";
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from "@angular/material/tree";
-import { SwaggerService } from "src/app/_services/swagger.service";
+import { SwaggerService } from "src/app/services/swagger.service";
 import { ExampleFlatNode } from "./ExampleFlatNode";
 import { INode } from "./INode";
 
