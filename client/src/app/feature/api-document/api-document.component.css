@@ -5,8 +5,7 @@
     text-transform: capitalize;
 }
 .api-card{
-    padding-right: 5%;
-    padding-left: 5%;
+    
 }
 .sub-title
 {
@@ -30,3 +29,17 @@
 {
     padding: 20px 5% 0;
 }
+
+
+  .param-group-h
+  {
+    padding-left: 16px;
+    padding-top: 10px;
+    text-transform: capitalize;
+    font-weight: bold;
+    
+  }
+  .param-group-t
+  {
+    width: 100%;
+  }

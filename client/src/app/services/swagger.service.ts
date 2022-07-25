@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 import swaggerJson from '../data/swagger.json'
 import { Method } from '../dto/method';
+import { ParameterGroup } from '../dto/parameter-group';
+import { Parameter } from '../dto/Parameter';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +20,7 @@ export class SwaggerService implements OnInit {
     ]
   };
   verbs = ['get', 'post', 'put', 'patch', 'delete', 'options']
-  tags = new Array();
+  tags;
   //jsonQuery = require('json-query');
   constructor(private http: HttpClient) {
 
@@ -41,6 +43,7 @@ export class SwaggerService implements OnInit {
   }
 
   getAllTags(): string[] {
+    this.tags = [] as string[];
     for (let [key, value] of Object.entries(this.data.paths)) {
       this.deepIterator(value);
     }
@@ -157,6 +160,55 @@ export class SwaggerService implements OnInit {
       children.push(child);
     }
     return children;
+  }
+
+  getParameterGroups(method : Method) : ParameterGroup[]
+  {
+    let parameterGroup = new Array<ParameterGroup> ();
+    let locations = this.getParameterLocations(method);
+    for(let location of locations)
+    {
+      let parameters = new Array<Parameter> ();
+
+      method.parameters.forEach( parameter =>
+        {
+          if(parameter.in == location)
+          {
+            parameters.push(parameter);
+          }
+        }
+
+      );
+
+
+      parameterGroup.push(
+        {
+          name: location,
+          parameters: parameters
+      }
+      );
+
+     
+
+    }
+    
+    return parameterGroup;
+
+  }
+
+  getParameterLocations(method:Method)
+  {
+    let locations = new Array<string> ();
+    let parameterGroup : ParameterGroup[];
+
+    method.parameters.forEach( value => 
+      {
+        locations.push(value.in);
+
+      });   
+
+    return Array.from(new Set(locations));
+
   }
 
   deepIterator(target) {
