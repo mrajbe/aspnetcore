@@ -53,7 +53,7 @@ export class SwaggerService implements OnInit {
 
   public getSwaggerJson(): Observable<any> {
     return new Observable(observer => observer.next(swaggerJson))
-   // return this.http.get('https://petstore.swagger.io/v2/swagger.json');
+    // return this.http.get('https://petstore.swagger.io/v2/swagger.json');
   }
 
   getApis(tag: string) {
@@ -78,24 +78,21 @@ export class SwaggerService implements OnInit {
 
   }
 
-  getMethod(tag, url, name) : Method
-  {
-    var method : Method;
-    for (let [key, value] of Object.entries(this.data.paths)) 
-    {
-      if(key == url)
-      {
+  getMethod(tag, url, name): Method {
+    var method: Method;
+    for (let [key, value] of Object.entries(this.data.paths)) {
+      if (key == url) {
         method = {
           name: name,
           tag: tag,
-          url : url, 
+          url: url,
           summary: value[name].summary,
           description: value[name].summary,
           operationId: value[name].operationId,
-          consumes:    value[name].consumes,
-          produces:    value[name].produces,
-          parameters:  value[name].parameters,
-          responses:   value[name].responses 
+          consumes: value[name].consumes,
+          produces: value[name].produces,
+          parameters: value[name].parameters,
+          responses: value[name].responses
         };
         return method;
       }
@@ -104,12 +101,12 @@ export class SwaggerService implements OnInit {
 
   }
 
-  getMethods(tag, path) : Method[] {
+  getMethods(tag, path): Method[] {
     var methods = new Array<Method>()
     for (let method of this.verbs) {
       if (path[method] && path[method].tags.indexOf(tag) != -1) {
-        path[method].name =  method;
-        methods.push(path[method] );
+        path[method].name = method;
+        methods.push(path[method]);
       }
     }
     return methods;
@@ -126,31 +123,26 @@ export class SwaggerService implements OnInit {
 
   }
 
-  getMenu() : Array<any>
-  {
+  getMenu(): Array<any> {
     var menuTree = new Array();
     var tags = this.getAllTags();
-    for(let tag of tags)
-    {
+    for (let tag of tags) {
       var children = new Array();
       var paths = this.getApis(tag);
-      
-      for(let path of paths)
-      {
+
+      for (let path of paths) {
         children.push(...this.getChildren(tag, path))
       }
-      var menu = { name:tag, children: children} 
+      var menu = { name: tag, children: children }
       menuTree.push(menu)
 
     }
     return menuTree;
   }
 
-  getChildren(tag, path)
-  {
+  getChildren(tag, path) {
     var children = new Array();
-    for(let method of path.methods)
-    {
+    for (let method of path.methods) {
       var child = {
         url: path.name,
         tag: tag,
@@ -162,50 +154,48 @@ export class SwaggerService implements OnInit {
     return children;
   }
 
-  getParameterGroups(method : Method) : ParameterGroup[]
-  {
-    let parameterGroup = new Array<ParameterGroup> ();
+  getParameterGroups(method: Method): ParameterGroup[] {
+    let parameterGroup = new Array<ParameterGroup>();
     let locations = this.getParameterLocations(method);
-    for(let location of locations)
-    {
-      let parameters = new Array<Parameter> ();
+    for (let location of locations) {
+      let parameters = new Array<Parameter>();
 
-      method.parameters.forEach( parameter =>
-        {
-          if(parameter.in == location)
-          {
+      if (method.parameters) {
+        method.parameters.forEach(parameter => {
+          if (parameter.in == location) {
             parameters.push(parameter);
           }
         }
 
-      );
+        );
+      }
 
 
       parameterGroup.push(
         {
           name: location,
           parameters: parameters
-      }
+        }
       );
 
-     
+
 
     }
-    
+
     return parameterGroup;
 
   }
 
-  getParameterLocations(method:Method)
-  {
-    let locations = new Array<string> ();
-    let parameterGroup : ParameterGroup[];
+  getParameterLocations(method: Method) {
+    let locations = new Array<string>();
+    let parameterGroup: ParameterGroup[];
 
-    method.parameters.forEach( value => 
-      {
+    if (method.parameters) {
+      method.parameters.forEach(value => {
         locations.push(value.in);
 
-      });   
+      });
+    }
 
     return Array.from(new Set(locations));
 

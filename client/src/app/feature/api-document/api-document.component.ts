@@ -5,6 +5,7 @@ import SwaggerUI from 'swagger-ui';
 import { SwaggerService } from '../../services/swagger.service';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { ParameterGroup } from 'src/app/dto/parameter-group';
+import { Method } from 'src/app/dto/method';
 
 export interface PeriodicElement {
   name: string;
@@ -32,7 +33,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./api-document.component.css']
 })
 export class ApiDocumentComponent implements OnInit {
-  method;
+  method : Method;
+  parameterGroups : ParameterGroup[];
   displayedColumns: string[] = ['name', 'type', 'description', 'required'];
   dataSource = ELEMENT_DATA;
   constructor(private swaggerService:SwaggerService,private activatedRoute : ActivatedRoute) { 
@@ -47,6 +49,7 @@ export class ApiDocumentComponent implements OnInit {
       {
         next: response => {
           this.method = this.swaggerService.getMethod(response['params'].tag, response['params'].url, response['params'].method);
+          this.parameterGroups = this.getParameterGroups(this.method);
           console.log(this.method);
         },
         error: error => {

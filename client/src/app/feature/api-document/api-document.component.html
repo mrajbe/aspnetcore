@@ -12,7 +12,7 @@
           <mat-list>
             <mat-list-item>Parameters</mat-list-item>
             <mat-divider></mat-divider>
-            <div *ngFor="let paramGroup of getParameterGroups(method)">
+            <div *ngFor="let paramGroup of parameterGroups">
               <div class="param-group-h">{{paramGroup.name}}:</div>
               
               <table mat-table [dataSource]="paramGroup.parameters" class="param-group-t" >
