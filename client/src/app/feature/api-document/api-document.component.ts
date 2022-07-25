@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Utility } from 'src/app/shared/utility';
 import SwaggerUI from 'swagger-ui';
 import { SwaggerService } from '../../services/swagger.service';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+
 
 @Component({
   selector: 'app-api-document',
@@ -31,6 +33,11 @@ export class ApiDocumentComponent implements OnInit {
         }
       }
     )
+
+    // getParameters(location)
+    // {
+
+    // }
 
 }
 

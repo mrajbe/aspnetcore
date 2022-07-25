@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ApiDocumentComponent } from './feature/api-document/api-document.component';
 import { SwaggerComponent } from './feature/swagger/swagger.component';
+import { FeatureModule } from './feature/feature.module';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { SwaggerComponent } from './feature/swagger/swagger.component';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FeatureModule
   ],
   providers: [],
   bootstrap: [AppComponent]

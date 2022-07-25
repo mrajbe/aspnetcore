@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import swaggerJson from '../data/swagger.json'
+import { Method } from '../dto/method';
 @Injectable({
   providedIn: 'root'
 })
@@ -74,9 +75,9 @@ export class SwaggerService implements OnInit {
 
   }
 
-  getMethod(tag, url, name)
+  getMethod(tag, url, name) : Method
   {
-    var method;
+    var method : Method;
     for (let [key, value] of Object.entries(this.data.paths)) 
     {
       if(key == url)
@@ -85,7 +86,13 @@ export class SwaggerService implements OnInit {
           name: name,
           tag: tag,
           url : url, 
-          value: value[name]
+          summary: value[name].summary,
+          description: value[name].summary,
+          operationId: value[name].operationId,
+          consumes:    value[name].consumes,
+          produces:    value[name].produces,
+          parameters:  value[name].parameters,
+          responses:   value[name].responses 
         };
         return method;
       }
@@ -94,11 +101,12 @@ export class SwaggerService implements OnInit {
 
   }
 
-  getMethods(tag, path) {
-    var methods = new Array()
+  getMethods(tag, path) : Method[] {
+    var methods = new Array<Method>()
     for (let method of this.verbs) {
       if (path[method] && path[method].tags.indexOf(tag) != -1) {
-        methods.push({ name: method, value: path[method] });
+        path[method].name =  method;
+        methods.push(path[method] );
       }
     }
     return methods;
@@ -143,7 +151,7 @@ export class SwaggerService implements OnInit {
       var child = {
         url: path.name,
         tag: tag,
-        name: method.value.summary,
+        name: method.summary,
         method: method.name
       }
       children.push(child);
